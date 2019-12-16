@@ -18,46 +18,31 @@ namespace Assets.Code.Core {
 		#endregion
 		#region Methods
 		private void Start() {
-			
+				StartCoroutine(StartGame());			
 		}
 
 		private void Update() {
-			// Press the space key to start coroutine
 			if (Input.GetKeyDown(KeyCode.Space)) {
-				// Use a coroutine to load the Scene in the background
 				StartCoroutine(LoadYourAsyncScene());
 			}
-			if (Input.GetKeyDown(KeyCode.Backspace)) {
-				// Use a coroutine to load the Scene in the background
-				StartCoroutine(LoadYourAsyncScene_());
-			}
-
 		}
 
 		IEnumerator LoadYourAsyncScene() {
 			// The Application loads the Scene in the background as the current Scene runs.
 			// This is particularly good for creating loading screens.
-			// You could also load the Scene by using sceneBuildIndex. In this case Scene2 has
-			// a sceneBuildIndex of 1 as shown in Build Settings.
-
-			AsyncOperation a = SceneManager.UnloadSceneAsync(scenes[counter]);
-			while (!a.isDone) { yield return null; }
-
-			counter = (counter + 1) % scenes.Length;
-			AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(scenes[counter], LoadSceneMode.Additive);
+			// You could also load the Scene by using sceneBuildIndex. In this case Scene2 has a sceneBuildIndex of 1 as shown in Build Settings.
+			var aUnload	= SceneManager.UnloadSceneAsync(scenes[counter]);
+			while (!aUnload.isDone) { yield return null; }
+			counter		= (counter + 1) % scenes.Length;
+			var aLoad	= SceneManager.LoadSceneAsync(scenes[counter], LoadSceneMode.Additive);
 			// Wait until the asynchronous scene fully loads
-			while (!asyncLoad.isDone) { yield return null; }
+			while (!aLoad.isDone) { yield return null; }
 
 		}
 
-		IEnumerator LoadYourAsyncScene_() {
-			// The Application loads the Scene in the background as the current Scene runs.
-			// This is particularly good for creating loading screens.
-			// You could also load the Scene by using sceneBuildIndex. In this case Scene2 has
-			// a sceneBuildIndex of 1 as shown in Build Settings.
-			AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(scenes[counter], LoadSceneMode.Additive);
-			// Wait until the asynchronous scene fully loads
-			while (!asyncLoad.isDone) { yield return null; }
+		IEnumerator StartGame() {
+			var aLoad = SceneManager.LoadSceneAsync(scenes[counter], LoadSceneMode.Additive);
+			while (!aLoad.isDone) { yield return null; }
 		}
 		#endregion
 		#region Helpers

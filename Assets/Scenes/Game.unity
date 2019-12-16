@@ -225,8 +225,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scenes:
   - Intro
-  - Map
   - Menu
+  - Map
+  - Stage
 --- !u!4 &1902933255
 Transform:
   m_ObjectHideFlags: 0
