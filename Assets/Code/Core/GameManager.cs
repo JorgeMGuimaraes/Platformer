@@ -22,9 +22,7 @@ namespace Assets.Code.Core {
 		}
 
 		private void Update() {
-			if (Input.GetKeyDown(KeyCode.Space)) {
-				StartCoroutine(LoadYourAsyncScene());
-			}
+			if (Input.GetKeyDown(KeyCode.Space)) { StartCoroutine(LoadYourAsyncScene()); }
 		}
 
 		IEnumerator LoadYourAsyncScene() {
